@@ -4,7 +4,11 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.querySelector('#count');
 const total = document.querySelector('#total');
 const movieList = document.querySelector('#movie__list');
+
+
+
 let moviePrice = +movieList.value;
+
 
 
 // Save selected movie index and price
@@ -26,6 +30,7 @@ const updateSelectedCount = () => {
 
   // save selected steats to local storage
   localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+  // localStorage.setItem('selectedSeats', seatsIndex);
   
   // get the length of the selected seats list
   const selectedSeatsCount = selectedSeats.length;
@@ -36,16 +41,28 @@ const updateSelectedCount = () => {
 };
 
 
-// Seat click event listener
-container.addEventListener('click', (e) => {
-  if(e.target.classList.contains('seat') && !e.target.classList.contains('occupied')){
-    // put the class of 'selected' on selected seats
-    e.target.classList.toggle('selected');
+// Get data from the local storage and populate the UI
+const populateUI = () => {
+  const selectedSeatsStr = localStorage.getItem('selectedSeats');
+  const selectedSeatsArr = JSON.parse(selectedSeatsStr);
 
-    // update the count and total
-    updateSelectedCount();
-  };
-});
+  // check if the selected seat array is in local storage and if more than 1 seat is selected and add 'selected' class to it
+  if(selectedSeatsArr !== null && selectedSeatsArr.length > 0){
+    seats.forEach( (seat, index) => {
+      if(selectedSeatsArr.indexOf(index) > -1){
+        seat.classList.add('selected');
+      }
+    });
+  }
+
+  // get the selected movie index from local storage
+  let selectedMovieIndex = localStorage.getItem('selectedMovieIndex');
+
+  // check if the index is in storage and update the index based on selected movie
+  if(selectedMovieIndex !== null){
+    selectedMovieIndex = movieList.selectedIndex;
+  }
+};
 
 // Movie select event listener
 movieList.addEventListener('change', (e) => {
@@ -58,3 +75,19 @@ movieList.addEventListener('change', (e) => {
   // update the count and total
   updateSelectedCount();
 });
+
+// Seat click event listener
+container.addEventListener('click', (e) => {
+  if(e.target.classList.contains('seat') && !e.target.classList.contains('occupied')){
+    // put the class of 'selected' on selected seats
+    e.target.classList.toggle('selected');
+
+    // update the count and total
+    updateSelectedCount();
+  };
+});
+
+
+// init
+populateUI();
+updateSelectedCount();
