@@ -1,16 +1,32 @@
+// VARIABLES
 const container = document.querySelector('.container');
 const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.querySelector('#count');
 const total = document.querySelector('#total');
-const movieSelect = document.querySelector('#movie__list');
-let moviePrice = +movieSelect.value;
+const movieList = document.querySelector('#movie__list');
+let moviePrice = +movieList.value;
 
+
+// Save selected movie index and price
+const setMovieData = (movieIndex, moviePrice) => {
+  localStorage.setItem('selectedMovieIndex', movieIndex);
+  localStorage.setItem('selectedMoviePrice', moviePrice);
+};
 
 // Update total and count
 const updateSelectedCount = () => {
   // create a list with all the selected seats
   const selectedSeats = document.querySelectorAll('.row .seat.selected');
 
+
+  // 1. Copy selected seats into an array
+  // 2. Map  through the array
+  // 3. Return a new array of indexes
+  const seatsIndex = [...selectedSeats].map( (seat) => [...seats].indexOf(seat) ); 
+
+  // save selected steats to local storage
+  localStorage.setItem('selectedSeats', JSON.stringify(seatsIndex));
+  
   // get the length of the selected seats list
   const selectedSeatsCount = selectedSeats.length;
 
@@ -32,9 +48,12 @@ container.addEventListener('click', (e) => {
 });
 
 // Movie select event listener
-movieSelect.addEventListener('change', (e) => {
+movieList.addEventListener('change', (e) => {
   // set moviePrice for each movie selected
   moviePrice = +e.target.value;
+
+  // save selected movie index and price in local storage
+  setMovieData(e.target.selectedIndex, e.target.value);
 
   // update the count and total
   updateSelectedCount();
