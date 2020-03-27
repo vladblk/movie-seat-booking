@@ -6,6 +6,9 @@
   --default-seat-color: #444451;
   --selected-seat-color: #6feaf6;
   --occupied-seat-color: #fff;
+
+  --button-border: var(--selected-seat-color);
+  --button-shadow: rgb(111, 234, 246);
 }
 
 * {
@@ -124,4 +127,28 @@ body {
 
 .text span {
   color: var(--span-color); 
+}
+
+
+.clear__btn {
+  cursor: pointer;
+
+  background-color: var(--background-color);
+  color: #fff;
+
+  border: 1px solid var(--button-border);
+  border-radius: 5px;
+  
+  box-shadow: 0 3px 10px rgba(111, 234, 246, .9);
+
+  padding: 10px 20px;
+  margin-top: 10px;
+}
+
+.clear__btn:hover {
+  transform: scale(1.05);
+}
+
+.clear__btn:focus {
+  outline: none;
 }
