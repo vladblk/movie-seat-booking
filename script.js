@@ -4,9 +4,7 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.querySelector('#count');
 const total = document.querySelector('#total');
 const movieList = document.querySelector('#movie__list');
-
-
-
+const clearBtn = document.querySelector('.clear__btn');
 let moviePrice = +movieList.value;
 
 
@@ -87,6 +85,22 @@ container.addEventListener('click', (e) => {
   };
 });
 
+// Clear button event listener
+clearBtn.addEventListener('click', (e) => {
+  // remove class of selected if the seats have it
+  seats.forEach( (seat) => {
+    if(seat.classList.contains('selected')){
+      seat.classList.remove('selected');
+    }
+  });
+
+  // clear local storage
+  localStorage.clear();
+
+  // return count and total back to 0
+  count.innerText = 0;
+  total.innerText = 0;
+});
 
 // init
 populateUI();
