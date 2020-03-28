@@ -7,8 +7,8 @@
   --selected-seat-color: #6feaf6;
   --occupied-seat-color: #fff;
 
-  --button-border: var(--selected-seat-color);
-  --button-shadow: rgb(111, 234, 246);
+  --confirm-button-border: var(--selected-seat-color);
+  --confirm-button-shadow: rgb(111, 234, 246);
 }
 
 * {
@@ -130,25 +130,36 @@ body {
 }
 
 
-.clear__btn {
+
+.confirm__btn, .clear__btn {
   cursor: pointer;
 
   background-color: var(--background-color);
   color: #fff;
 
-  border: 1px solid var(--button-border);
+  border: 1px solid var(--confirm-button-border);
   border-radius: 5px;
   
   box-shadow: 0 3px 10px rgba(111, 234, 246, .9);
 
   padding: 10px 20px;
   margin-top: 10px;
+  letter-spacing: 1px;
 }
 
-.clear__btn:hover {
+.clear__btn {
+  border: 1px solid red;
+  box-shadow: 0 3px 10px rgba(255, 0, 0, .9);
+}
+
+.confirm__btn {
+  margin-right: 10px;
+}
+
+.confirm__btn:hover, .clear__btn:hover {
   transform: scale(1.05);
 }
 
-.clear__btn:focus {
+.confirm__btn:focus, .clear__btn:focus {
   outline: none;
 }
