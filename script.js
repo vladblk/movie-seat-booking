@@ -4,6 +4,7 @@ const seats = document.querySelectorAll('.row .seat:not(.occupied)');
 const count = document.querySelector('#count');
 const total = document.querySelector('#total');
 const movieList = document.querySelector('#movie__list');
+const confirmBtn = document.querySelector('.confirm__btn');
 const clearBtn = document.querySelector('.clear__btn');
 let moviePrice = +movieList.value;
 
@@ -83,6 +84,16 @@ container.addEventListener('click', (e) => {
     // update the count and total
     updateSelectedCount();
   };
+});
+
+// Confirm button event listener
+confirmBtn.addEventListener('click', (e) => {
+  seats.forEach( (seat) => {
+    if(seat.classList.contains('selected')){
+      seat.classList.remove('selected');
+      seat.classList.add('occupied');
+    }
+  });
 });
 
 // Clear button event listener
